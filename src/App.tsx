@@ -118,19 +118,6 @@ import { useState } from 'react'
 //   )
 // }
 
-function MyButton() {
-  const [count, setCount] = useState(0)
-
-  function handleClick() {
-    setCount(count + 1)
-    console.log(count)
-  }
-
-  return (
-    <button onClick={handleClick}>Clicked {count} times</button>
-  )
-}
-
 const products = [
   { title: 'Cabbage', isFruit: false, id: 1 },
   { title: 'Garlic', isFruit: false, id: 2 },
@@ -154,16 +141,61 @@ function ShoppingList() {
   );
 }
 
+const user = {
+  name: "Fast Salter",
+  imageUrl: "https://i.imgur.com/yXOvdOSs.jpg",
+  imageSize: 90
+}
+
+function Profile() {
+  return (
+    <>
+      <h2>Hi {user.name}!</h2>
+      <img 
+        className='avatar'
+        src={user.imageUrl}
+        alt={"Photo of " + user.name}
+        style={{
+          width: user.imageSize,
+          height: user.imageSize
+        }}
+      />
+    </>
+  )
+}
+
 
 function App() {
+  const [count, setCount] = useState(0)
+
+  function handleClick() {
+    setCount(count + 1)
+    console.log(count)
+  }
+
   return (
     <div>
       <h1>Welcome to my react app!</h1>
       <h4>I'm using TypeScript to build this app.</h4>
-      <MyButton />
+      <MyButton count={count} onClick={handleClick} />
+      <br />
+      <MyButton count={count} onClick={handleClick} />
 
       <ShoppingList />
+
+      <Profile />
     </div>
+  )
+}
+
+type MyButtonProps = {
+  count: number
+  onClick: () => void
+}
+
+function MyButton({ count, onClick }: MyButtonProps) {
+  return (
+    <button onClick={onClick}>Clicked {count} times</button>
   )
 }
 
